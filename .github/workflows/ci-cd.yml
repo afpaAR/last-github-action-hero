@@ -44,8 +44,32 @@ jobs:
         run: npm test
         
       # TODO CI - 5. Commando : build
-
+      - id: build
+        name: Build
+        run: npm run build
+        env:
+          VITE_COMMIT: ${{ github.sha }} # déclaration d'une variable d'environnement accessible au runner
+          
       # TODO CI - 6. Résumé 1ère mission -> Github Markdown
+      - name: Rapport CI
+        if: always()
+        env: # Déclaration de plusieurs variables réutilisables dans le rapport
+          LINT: ${{ steps.lint.outcome }}
+          TEST: ${{ steps.test.outcome }}
+          BUILD: ${{ steps.build.outcome }}
+        run: |
+          {
+            echo "## Rapport : CI"
+            echo ""
+            echo "| Étape | Résultat |"
+            echo "|---|---|"
+            echo "| Vérification statique | $LINT |"
+            echo "| Tests unitaires | $TEST |"
+            echo "| Build | $BUILD |"
+            echo ""
+            echo "_Réalisé par ${{ github.actor }} · commit \`${GITHUB_SHA::7}\`_"
+          } >> "$GITHUB_STEP_SUMMARY"
 
+          
   # Phase 2 - CD
   
