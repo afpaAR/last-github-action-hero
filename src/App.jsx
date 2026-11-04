@@ -18,8 +18,6 @@ export default function App() {
   // Indique si la simulation de pipeline est en cours de fonctionnement ou non
   const [running, setRunning] = useState(false);
 
-  const spyingVariable = "Hans Gruber"
-
   /**
    * Gère le changement d'état "running"
    */
