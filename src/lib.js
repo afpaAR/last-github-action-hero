@@ -44,5 +44,12 @@ export function heroRank(done, total) {
 * Retourne "True" si le nom passé en paramètre est "Sarah Connor"
 */
 export function isSarahConnor(nameToCheck) {
-  return false;
+  if(nameToCheck == "Sarah Connor")
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
